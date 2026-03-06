@@ -1,0 +1,21 @@
+[Unit]
+Description=Pi-hole DNS Kiosk Dashboard (Chromium + local webserver)
+After=network-online.target graphical.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=admin
+Group=admin
+Environment=CHROMIUM_FLAGS=
+Environment=PORT=8088
+Environment=DOCROOT=/opt/pihole-kiosk
+Environment=URL=http://127.0.0.1:8088/
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/admin/.Xauthority
+ExecStart=/opt/pihole-kiosk/pihole-kiosk.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical.target
